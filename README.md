@@ -24,8 +24,8 @@
 
 | Application | URL |
 |-------------|-----|
-| Personal Portfolio | http://100.55.9.121:8080 |
-| Todo App | http://100.55.9.121:8081 |
+| Personal Portfolio | http://54.147.40.189:8080 |
+| Todo App | http://54.147.40.189:8081 |
 
 ---
 

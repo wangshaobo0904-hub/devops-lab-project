@@ -80,23 +80,20 @@ jobs:
           script: |
             echo "=== 开始部署 ==="
 
-            # 进入项目目录（根据你的服务器实际路径修改）
+            # 进入项目目录
             cd /opt/devops-lab-project
 
-            # 拉取最新代码和 docker-compose.yml
+            # 拉取最新代码
             git pull origin main
 
-            # 拉取最新镜像
-            docker compose pull
+            # 停止旧容器
+            sudo docker compose down
 
-            # 停止并删除旧容器
-            docker compose down
+            # 重新构建并启动（--build 强制重新构建镜像）
+            sudo docker compose up -d --build
 
-            # 启动新容器（后台运行）
-            docker compose up -d
-
-            # 清理未使用的镜像（可选，释放磁盘空间）
-            docker image prune -f
+            # 清理未使用的镜像（释放磁盘空间）
+            sudo docker image prune -f
 
             echo "=== 部署完成 ==="
             echo "个人网站: http://${{ secrets.SERVER_HOST }}:8080"
