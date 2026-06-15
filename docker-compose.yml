@@ -1,0 +1,43 @@
+# ============================================
+# DevOps Lab - Docker Compose 编排文件
+# 包含两个服务：
+#   1. my-website  - 个人介绍网站 (端口 8080)
+#   2. todo-app    - Todo 应用 (端口 8081)
+# ============================================
+
+services:
+  # --- 服务 1: 个人介绍网站 ---
+  my-website:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: my-website
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # --- 服务 2: Todo 应用 ---
+  todo-app:
+    build:
+      context: ./todo-app
+      dockerfile: Dockerfile
+    container_name: todo-app
+    ports:
+      - "8081:5000"
+    restart: unless-stopped
+    networks:
+      - app-network
+    # Todo 应用使用 SQLite，数据持久化到本地卷
+    volumes:
+      - todo-data:/app/data
+
+# --- 网络 ---
+networks:
+  app-network:
+    driver: bridge
+
+# --- 数据卷 ---
+volumes:
+  todo-data:

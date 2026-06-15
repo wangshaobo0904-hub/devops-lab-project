@@ -1,0 +1,103 @@
+# ============================================================
+# DevOps Lab - GitHub Actions CI/CD 自动部署流水线
+# ============================================================
+# 触发条件: 推送到 main 分支
+# 流程:
+#   1. Checkout 代码
+#   2. 登录 Docker Hub
+#   3. 构建并推送 my-website 镜像
+#   4. SSH 到服务器并执行部署
+# ============================================================
+
+name: 🚀 Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+  # 可选：手动触发（用于测试）
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build, Push & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      # ============================================================
+      # 步骤 1: 拉取代码
+      # ============================================================
+      - name: 📥 Checkout 代码
+        uses: actions/checkout@v4
+
+      # ============================================================
+      # 步骤 2: 登录 Docker Hub
+      # ------------------------------------------------------------
+      # 需要在 GitHub Settings → Secrets and variables → Actions
+      # 中添加以下 Repository secrets:
+      #   - DOCKERHUB_USERNAME: 你的 Docker Hub 用户名
+      #   - DOCKERHUB_TOKEN:    Docker Hub Access Token
+      #     (在 hub.docker.com → Account Settings → Security → New Access Token 中生成)
+      # ============================================================
+      - name: 🔐 登录 Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ============================================================
+      # 步骤 3: 构建并推送 my-website 镜像到 Docker Hub
+      # ------------------------------------------------------------
+      # 镜像标签 ${{ secrets.DOCKERHUB_USERNAME }}/my-website:latest
+      # 标签中的用户名自动从 GitHub Secrets 读取，无需手动修改
+      # ============================================================
+      - name: 🐳 构建并推送 my-website 镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: ./web
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/my-website:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/my-website:${{ github.sha }}
+
+      # ============================================================
+      # 步骤 4: SSH 到服务器并执行部署
+      # ------------------------------------------------------------
+      # 需要在 GitHub Settings → Secrets and variables → Actions
+      # 中添加以下 Repository secrets:
+      #   - SERVER_HOST:   你的服务器 IP 地址或域名
+      #   - SERVER_USER:   SSH 登录用户名 (例如 root 或 ubuntu)
+      #   - SERVER_SSH_KEY: SSH 私钥内容 (整个文件内容)
+      #     (生成方式: ssh-keygen -t ed25519 -C "github-actions")
+      #     将公钥添加到服务器的 ~/.ssh/authorized_keys 中
+      # ============================================================
+      - name: 🖥️ 部署到服务器
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            echo "=== 开始部署 ==="
+
+            # 进入项目目录（根据你的服务器实际路径修改）
+            cd /opt/devops-lab-project
+
+            # 拉取最新代码和 docker-compose.yml
+            git pull origin main
+
+            # 拉取最新镜像
+            docker compose pull
+
+            # 停止并删除旧容器
+            docker compose down
+
+            # 启动新容器（后台运行）
+            docker compose up -d
+
+            # 清理未使用的镜像（可选，释放磁盘空间）
+            docker image prune -f
+
+            echo "=== 部署完成 ==="
+            echo "个人网站: http://${{ secrets.SERVER_HOST }}:8080"
+            echo "Todo应用: http://${{ secrets.SERVER_HOST }}:8081"

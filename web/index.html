@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio - 20242206</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo">My Portfolio</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#interests">Interests</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <img
+          src="images/avatar.jpg"
+          alt="Profile Photo"
+          class="avatar"
+          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22><rect fill=%22%23ddd%22 width=%22150%22 height=%22150%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2214%22>Photo Placeholder</text></svg>'"
+        >
+        <h1>Hi, I'm <span class="highlight">Wang Shaobo</span></h1>
+        <p class="student-id">Student ID: 20242206</p>
+        <p class="tagline">Computer Science &amp; Technology · DevOps Enthusiast</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- About Me -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I am a Computer Science &amp; Technology student passionate about software
+            development and operations. I am currently studying DevOps practices and
+            technologies, including Docker containerization, CI/CD automation pipelines,
+            and cloud-native application deployment and management.
+          </p>
+          <p>
+            I believe that automation is the core competitive advantage of modern software
+            development. Continuous Integration and Continuous Delivery can significantly
+            improve team efficiency and software quality. In this lab, I demonstrate how to
+            build a complete DevOps deployment pipeline using Docker and GitHub Actions.
+          </p>
+        </div>
+        <div class="about-info">
+          <div class="info-item">
+            <span class="info-label">Name</span>
+            <span class="info-value">Wang Shaobo</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Student ID</span>
+            <span class="info-value">20242206</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Major</span>
+            <span class="info-value">Computer Science &amp; Technology</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Email</span>
+            <span class="info-value">377451020@qq.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section bg-light">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">🐳</div>
+          <h3>Docker</h3>
+          <p>Containerized application builds, multi-stage builds, Docker Compose orchestration</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">☁️</div>
+          <h3>CI/CD</h3>
+          <p>GitHub Actions automation pipelines, automated build and deployment</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🌐</div>
+          <h3>Web Development</h3>
+          <p>HTML5 / CSS3 / JavaScript / Responsive design</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🛠️</div>
+          <h3>DevOps</h3>
+          <p>Linux fundamentals, Shell scripting, server operations</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🐍</div>
+          <h3>Python</h3>
+          <p>Script writing, automation tool development</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🗄️</div>
+          <h3>Databases</h3>
+          <p>MySQL / SQLite fundamentals</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interests -->
+  <section id="interests" class="section">
+    <div class="container">
+      <h2 class="section-title">Interests &amp; Hobbies</h2>
+      <div class="interests-grid">
+        <div class="interest-item">
+          <span class="interest-emoji">📚</span>
+          <span>Reading Tech Blogs</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-emoji">💻</span>
+          <span>Open Source Contribution</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-emoji">🎮</span>
+          <span>Video Games</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-emoji">🏀</span>
+          <span>Basketball</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-emoji">🎵</span>
+          <span>Music</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-emoji">✈️</span>
+          <span>Traveling</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section bg-dark">
+    <div class="container">
+      <h2 class="section-title light">Contact Me</h2>
+      <p class="contact-text">If you are interested in DevOps or automation deployment, feel free to connect and learn together!</p>
+      <div class="contact-links">
+        <a href="https://github.com" class="contact-link" target="_blank">GitHub</a>
+        <a href="mailto:377451020@qq.com" class="contact-link">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Wang Shaobo | DevOps Lab Project | Powered by Docker &amp; GitHub Actions</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
